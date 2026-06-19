@@ -1,0 +1,168 @@
+{
+  "id": 3,
+  "userid": 5,
+  "created_at": "2025-05-14 11:55:41",
+  "modified_at": "2026-03-12 11:59:03",
+  "lastchangeby": 5,
+  "team": 1,
+  "title": "Electron Microscopy Laboratory Session",
+  "status": null,
+  "body": "\u003Cp\u003ETemplate to be completed before a session at the FIB-SEM or TEM microscope. The information required concerns the operator and the sample analysed\u003C/p\u003E",
+  "category": null,
+  "ordering": null,
+  "canread": "{\"base\": 30, \"teams\": [], \"users\": [], \"teamgroups\": []}",
+  "canwrite": "{\"base\": 20, \"teams\": [], \"users\": [], \"teamgroups\": []}",
+  "canread_is_immutable": 0,
+  "canwrite_is_immutable": 0,
+  "canread_target": "{\"base\": 30, \"teams\": [], \"users\": [], \"teamgroups\": []}",
+  "canwrite_target": "{\"base\": 20, \"teams\": [], \"users\": [], \"teamgroups\": []}",
+  "content_type": 1,
+  "locked": 0,
+  "lockedby": null,
+  "locked_at": null,
+  "metadata": "{\"elabftw\": {\"extra_fields_groups\": [{\"id\": 1, \"name\": \"USER INFORMATIONS\"}, {\"id\": 2, \"name\": \"SAMPLE INFORMATIONS\"}, {\"id\": 3, \"name\": \"ELECTRON MICROSCOPE\"}]}, \"extra_fields\": {\"Method\": {\"type\": \"select\", \"value\": \"experiment\", \"options\": [\"experiment\", \"simulation\"], \"group_id\": 2, \"position\": 1, \"required\": true, \"description\": \"A qualifier whether the sample is a real one or a virtual one (in a computer simulation)\"}, \"Atom types\": {\"type\": \"text\", \"value\": \"*\", \"group_id\": 2, \"position\": 2, \"required\": true, \"description\": \"List of comma-separated elements from the periodic table that are contained in the sample.\"}, \"Affiliation\": {\"type\": \"text\", \"value\": \"*\", \"group_id\": 1, \"position\": 1, \"required\": true}, \"Sample name\": {\"type\": \"text\", \"value\": \"*\", \"group_id\": 2, \"position\": 0, \"required\": true}, \"Physical form\": {\"type\": \"select\", \"value\": \"bulk\", \"options\": [\"bulk\", \"foil\", \"thin_film\", \"powder\"], \"group_id\": 2, \"required\": true}, \"Office address\": {\"type\": \"text\", \"value\": \"\", \"group_id\": 1, \"position\": 2}, \"Operator email\": {\"type\": \"email\", \"value\": \"tmp@tmp\", \"group_id\": 1, \"position\": 3, \"required\": true}, \"Sample history\": {\"type\": \"text\", \"value\": \"*\", \"group_id\": 2, \"position\": 3, \"required\": true, \"description\": \"A reference to a (globally) unique persistent identifier, if is not available, use this field as a free-text description to specify a sub-set of the entire sample history\"}, \"ORCID identifier\": {\"type\": \"text\", \"value\": \"\", \"group_id\": 1, \"position\": 4}, \"Preparation date\": {\"type\": \"datetime-local\", \"value\": \"\", \"group_id\": 2, \"position\": 4}, \"Laboratory operator\": {\"type\": \"users\", \"group_id\": 1, \"position\": 0, \"required\": true}, \"Office telephone number\": {\"type\": \"text\", \"value\": \"\", \"group_id\": 1, \"position\": 5}, \"Electron Microscope Used\": {\"type\": \"select\", \"value\": \"FIB-SEM Helios 5 UC\", \"options\": [\"FIB-SEM Helios 5 UC\", \"TEM/STEM Jeol JEM 2010F\"], \"group_id\": 3, \"required\": true}}}",
+  "state": 1,
+  "is_pinned": 0,
+  "status_title": null,
+  "status_color": null,
+  "category_title": null,
+  "category_color": null,
+  "tags": "SEM|Electron Microscopy|FIB",
+  "tags_id": "3,4,7",
+  "next_step": null,
+  "firstname": "Elisa",
+  "lastname": "Brugaletta",
+  "orcid": "0000-0003-2598-6737",
+  "fullname": "Elisa Brugaletta",
+  "team_name": "Default team",
+  "up_item_id": null,
+  "has_attachment": null,
+  "steps": [],
+  "experiments_links": [],
+  "items_links": [],
+  "sharelink": "http://elabftw.imm.cnr.it/templates.php?mode=view&id=3",
+  "body_html": "\u003Cp\u003ETemplate to be completed before a session at the FIB-SEM or TEM microscope. The information required concerns the operator and the sample analysed\u003C/p\u003E",
+  "metadata_decoded": {
+    "elabftw": {
+      "extra_fields_groups": [
+        {
+          "id": 1,
+          "name": "USER INFORMATIONS"
+        },
+        {
+          "id": 2,
+          "name": "SAMPLE INFORMATIONS"
+        },
+        {
+          "id": 3,
+          "name": "ELECTRON MICROSCOPE"
+        }
+      ]
+    },
+    "extra_fields": {
+      "Method": {
+        "type": "select",
+        "value": "experiment",
+        "options": [
+          "experiment",
+          "simulation"
+        ],
+        "group_id": 2,
+        "position": 1,
+        "required": true,
+        "description": "A qualifier whether the sample is a real one or a virtual one (in a computer simulation)"
+      },
+      "Atom types": {
+        "type": "text",
+        "value": "*",
+        "group_id": 2,
+        "position": 2,
+        "required": true,
+        "description": "List of comma-separated elements from the periodic table that are contained in the sample."
+      },
+      "Affiliation": {
+        "type": "text",
+        "value": "*",
+        "group_id": 1,
+        "position": 1,
+        "required": true
+      },
+      "Sample name": {
+        "type": "text",
+        "value": "*",
+        "group_id": 2,
+        "position": 0,
+        "required": true
+      },
+      "Physical form": {
+        "type": "select",
+        "value": "bulk",
+        "options": [
+          "bulk",
+          "foil",
+          "thin_film",
+          "powder"
+        ],
+        "group_id": 2,
+        "required": true
+      },
+      "Office address": {
+        "type": "text",
+        "value": "",
+        "group_id": 1,
+        "position": 2
+      },
+      "Operator email": {
+        "type": "email",
+        "value": "tmp@tmp",
+        "group_id": 1,
+        "position": 3,
+        "required": true
+      },
+      "Sample history": {
+        "type": "text",
+        "value": "*",
+        "group_id": 2,
+        "position": 3,
+        "required": true,
+        "description": "A reference to a (globally) unique persistent identifier, if is not available, use this field as a free-text description to specify a sub-set of the entire sample history"
+      },
+      "ORCID identifier": {
+        "type": "text",
+        "value": "",
+        "group_id": 1,
+        "position": 4
+      },
+      "Preparation date": {
+        "type": "datetime-local",
+        "value": "",
+        "group_id": 2,
+        "position": 4
+      },
+      "Laboratory operator": {
+        "type": "users",
+        "group_id": 1,
+        "position": 0,
+        "required": true
+      },
+      "Office telephone number": {
+        "type": "text",
+        "value": "",
+        "group_id": 1,
+        "position": 5
+      },
+      "Electron Microscope Used": {
+        "type": "select",
+        "value": "FIB-SEM Helios 5 UC",
+        "options": [
+          "FIB-SEM Helios 5 UC",
+          "TEM/STEM Jeol JEM 2010F"
+        ],
+        "group_id": 3,
+        "required": true
+      }
+    }
+  },
+  "uploads": [],
+  "exclusive_edit_mode": []
+}
