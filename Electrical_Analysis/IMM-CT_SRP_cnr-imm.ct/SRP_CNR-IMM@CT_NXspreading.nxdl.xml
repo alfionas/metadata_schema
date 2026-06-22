@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="nxdlformat.xsl"?>
+<!--
+# This file decribes a local data format for Spreading Resistance Profiling
+# conforming to practices in the NeXus Data Format.
+# 
+# This is not part of the official NeXus Data Format.
+# 
+# Copyright for NeXus:
+# NeXus - Neutron and X-ray Common Data Format
+# 
+# Copyright (C) 2022-2025 NeXus International Advisory Committee (NIAC)
+# 
+# For further information, see http://www.nexusformat.org
+-->
+<definition xmlns="http://definition.nexusformat.org/nxdl/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" category="application" type="group" name="NXspreading" extends="NXobject" xsi:schemaLocation="http://definition.nexusformat.org/nxdl/3.1 ../nxdl.xsd">
+    <doc>
+        This is a NeXus-compliant definition for Spreading Resistance Profiling experiments
+        developed at CNR IMM Catania for local use and in the context of the 
+        NFFA-DI infrastructure.
+
+        This definition describes Spreading Resistance Profiling experiments
+        performed at CNR IMM Catania. 
+        
+        This definition has been tailored around the SRP data produced by our facility only.
+        It has been tested and discussed with expert technologists working with the facility,
+        but does not take into account similar instrumentations in other labs.
+        As such, this definition serves as a form of documentation, and a possible starting
+        point for further standardization within the NeXus file format which would require
+        a broaded discussion community.
+    </doc>
+    <symbols>
+        <doc>
+            Variables used throughout the document, e.g. dimensions or parameters.
+        -->
+        </doc>
+        <symbol name="nZ">
+            <doc>
+                The number of depth points.
+            </doc>
+        </symbol>
+    </symbols>
+    <group type="NXentry">
+        <field name="definition">
+            <doc>
+                An application definition for spreading resistance profiling.
+            </doc>
+            <attribute name="version">
+                <doc>
+                    Version number to identify which definition of this application
+                    definition was used for this entry/data.
+                </doc>
+            </attribute>
+            <attribute name="URL">
+                <doc>
+                    URL where to find further material (documentation, examples) relevant
+                    to the application definition.
+                </doc>
+            </attribute>
+            <enumeration>
+                <item value="NXspreading"/>
+            </enumeration>
+        </field>
+        <field name="title" recommended="true"/>
+        <field name="spreading_experiment_type">
+            <doc>
+                Specify the type of spreading resistance profiling.
+            </doc>
+            <enumeration>
+                <item value="2 probe"/>
+                <item value="4 probe"/>
+            </enumeration>
+        </field>
+        <field name="experiment_identifier" optional="true">
+            <doc>
+                Unique local identifier.
+            </doc>
+        </field>
+        <field name="experiment_location" optional="true">
+            <doc>
+                Where the experiment has been performed.
+            </doc>
+        </field>
+        <field name="start_time" type="NX_DATE_TIME" recommended="true">
+            <doc>
+                Datetime of the start of the measurement.
+                Should be a ISO8601 date/time stamp. It is recommended to add an explicit time zone,
+                otherwise, the local time zone is assumed per ISO8601.
+                
+                It is required to enter at least one of both measurement times, either "start_time" or "end_time".
+            </doc>
+        </field>
+        <group type="NXinstrument">
+            <doc>
+                Properties of the spreading resistance profiling equipment.
+            </doc>
+            <field name="name" optional="true"/>
+            <field name="applied_force" units="NX_ANY">
+                <doc>
+                    The weigth applied to the points.
+                    Should have units of a force or a mass.
+                    Because it does not seem like NeXus currently supports force units, 
+                    units of mass are preferred.
+                </doc>
+                <attribute name="units" optional="true">
+                    <doc>
+                        Suggested: NX_MASS, example "g" for grams
+                    </doc>
+                </attribute>
+            </field>
+            <field name="tip_distance" units="NX_LENGTH">
+                <doc>
+                    Distance between the tips for 2-probe measurements.
+                    Suggested units "um" for micrometers.
+                </doc>
+            </field>
+        </group>
+        <group type="NXsample">
+            <field name="name"/>
+            <field name="identifier" optional="true">
+                <doc>
+                    local sample identifier
+                </doc>
+            </field>
+            <field name="sample_structure">
+                <doc>
+                    e.g. N Bulk
+                </doc>
+            </field>
+            <field name="surface_preparation_method">
+                <doc>
+                    What type of procedure is used for sample surface preparation.
+                    e.g. "lapping"
+                    Note: the relevant field associated to the surface preparation should be present, e.g. lapping_paste.
+                </doc>
+            </field>
+            <field name="lapping_paste" optional="true">
+                <doc>
+                    Details in case the surface_preparation_method is "lapping".
+                    e.g. "Diamond 0.05um"
+                </doc>
+            </field>
+            <field name="crystallographic_orientation" optional="true">
+                <doc>
+                    The crystallographic orientation of the exposed surface.
+                </doc>
+                <attribute name="notation">
+                    <doc>
+                        Notation used for the crystallographic orientation.
+                    </doc>
+                    <enumeration open="true">
+                        <item value="Miller indices"/>
+                    </enumeration>
+                </attribute>
+            </field>              
+        </group>
+        <group type="NXdata">
+            <attribute name="axes">
+                <doc>
+                    x-axis of the data; should be "depth".
+                </doc>
+            </attribute>
+            <attribute name="signal">
+                <doc>
+                    y-axis of the data for the default plot.
+                </doc>
+            </attribute>
+            <attribute name="auxiliary_signals" optional="true">
+                <doc>
+                    Other data to plot as a y-axis, 
+                    e.g. signal might be "spreading_resistance" while auxiliary_signals might
+                    be ["resistivity", "carrier_concentration"].
+                </doc>
+            </attribute>
+            <field name="data_type">
+                <doc>
+                    Select which type of data was recorded, for example spreading resistance,
+                    resistivity, or carrier concentration.
+                    It is possible to have multiple selections.
+                </doc>
+                <enumeration open="true">
+                    <item value="spreading resistance"/>
+                    <item value="resistivity"/>
+                    <item value="carrier density"/>
+                    <item value="other"/>
+                </enumeration>
+            </field>
+            <field name="depth" units="NX_LENGTH">
+                <doc>
+                    Depth in the sample from the surface
+                </doc>
+                <dimensions rank="1">
+                    <dim index="1" value="nZ"/>
+                </dimensions>
+            </field>
+            <field name="spreading_resistance" optional="true" units="V/A">
+                <doc>
+                    Spreading resistance in Ohm
+                </doc>
+                <dimensions rank="1">
+                    <dim index="1" value="nZ"/>
+                </dimensions>
+            </field>
+            <field name="resistivity" optional="true" units="V/A * cm">
+                <doc>
+                    Resistivity in Ohm*cm
+                </doc>
+                <dimensions rank="1">
+                    <dim index="1" value="nZ"/>
+                </dimensions>
+            </field>
+            <field name="carrier_concentration" optional="true" units="1/cm^3">
+                <doc>
+                    Carrier concentration in number per cube centimeter.
+                </doc>
+                <dimensions rank="1">
+                    <dim index="1" value="nZ"/>
+                </dimensions>
+            </field>
+            <group type="NXprocess" optional="true">
+                <doc>
+                    This subgroup is for describing post-processing used to produce data.
+                    For instance, it can be used to describe how spreading_resistance is used to derive resistivity.
+                </doc>
+                <group type="NXnote">
+                    <field name="description">
+                        <doc>
+                            Describe how the data was processed.
+                        </doc>
+                    </field>
+                </group>
+                <group type="NXdata" name="P_calibration_data" optional="true">
+                    <doc>
+                        Describe the calibration data for P-type layers in the analyzed sample.
+                    </doc>
+                    <field name="tip_contact_radius" units="NX_LENGTH">
+                        radius of contact of the tips used in calibration, usually in micron
+                    </field>
+                    <field name="tolerance" type="NX_NUMBER">
+                        <doc>
+                            Percentage tolerance used for the resistivity calculation
+                        </doc>
+                    </field>
+                    <field name="spreading_resistance" units="V/A">
+                        <doc>
+                            Measured spreading resistance of the calibrated sample in Ohm.
+                        </doc>
+                        <dimensions rank="1">
+                            <dim index="1" value="nZ"/>
+                        </dimensions>
+                    </field>
+                    <field name="calibrated_resistivity" optional="true" units="V/A * cm">
+                        <doc>
+                            Resistivity of the calibrated sample in Ohm*cm
+                        </doc>
+                        <dimensions rank="1">
+                            <dim index="1" value="nZ"/>
+                        </dimensions>
+                        <attribute name="certified" optional="true" type="NX_BOOLEAN">
+                            <doc>
+                                Whether the calibration samples are certified or not.
+                            </doc>
+                        </attribute>
+                    </field>
+                </group>
+                <group type="NXdata" name="N_calibration_data" optional="true">
+                    <doc>
+                        Describe the calibration data for N-type layers in the analyzed sample.
+                    </doc>
+                    <field name="tip_contact_radius" units="NX_LENGTH">
+                        Radius of contact of the tips used in calibration, usually in micron
+                    </field>
+                    <field name="tolerance" type="NX_NUMBER">
+                        <doc>
+                            Percentage tolerance used for the resistivity calculation
+                        </doc>
+                    </field>
+                    <field name="spreading_resistance" units="V/A">
+                        <doc>
+                            Measured spreading resistance of the calibrated sample in Ohm.
+                        </doc>
+                        <dimensions rank="1">
+                            <dim index="1" value="nZ"/>
+                        </dimensions>
+                    </field>
+                    <field name="calibrated_resistivity" optional="true" units="V/A * cm">
+                        <doc>
+                            Resistivity of the calibrated sample in Ohm*cm
+                        </doc>
+                        <dimensions rank="1">
+                            <dim index="1" value="nZ"/>
+                        </dimensions>
+                        <attribute name="certified" optional="true" type="NX_BOOLEAN">
+                            <doc>
+                                Whether the calibration samples are certified or not.
+                            </doc>
+                        </attribute>
+                    </field>
+                </group>
+                <group type="NXobject" name="layer_model">
+                    <doc>
+                        The layer model used for processing the data.
+                    </doc>
+                    <field name="number_of_layers" type="NX_INT">
+                        <doc>
+                            The number of layers in the model.
+                        </doc>
+                    </field>
+                    <group type="NXobject" name="LAYER">
+                        <doc>
+                            Describe one LAYER group for each layer in the model.
+                        </doc>
+                        <field name="index" type="NX_INT">
+                            <doc>
+                                Index of the layer. Starting with 1 for the fist layer from the surface.
+                            </doc>
+                        </field>
+                        <field name="starting_point" type="NX_INT">
+                            <doc>
+                                Index in the data array of the first point corresponding to the layer.
+                            </doc>
+                        </field>
+                        <field name="ending_point" type="NX_INT">
+                            <doc>
+                                Index in the data array of the last point corresponding to the layer.
+                            </doc>
+                        </field>
+                        <field name="type">
+                            <doc>
+                                Whether the layer is P-type or N-type.
+                            </doc>
+                            <enumeration>
+                                <item value="P"/>
+                                <item value="N"/>
+                            </enumeration>
+                            <attribute name="mode" optional="true">
+                                <doc>
+                                    Whether the layer type has been set manually or otherwise.
+                                </doc>
+                                <enumeration open="true">
+                                    <item value="manual"/>
+                                    <item value="other"/>
+                                </enumeration>
+                            </attribute>
+                        </field>
+                        <field name="thickness" units="NX_LENGTH">
+                            <doc>
+                                Thickness of the layer usually in micron.
+                            </doc>
+                        </field>
+                        <field name="method" optional="true">
+                            <doc>
+                                Method used to solve the multilayer model
+                            </doc>
+                            <enumeration open="true">
+                                <item value="VAR"/>
+                                <item value="other"/>
+                            </enumeration>
+                        </field>
+                        <field name="junction_depth" optional="true">
+                            <doc>
+                                depth of the last point of the layer
+                            </doc>
+                        </field>
+                        <field name="layer_resistance" units="NX_ANY">
+                            <doc>
+                                Layer resistance in Ohms per square.
+                            </doc>
+                        </field>
+                        <field name="active_dose" units="NX_FLOAT">
+                            <doc>
+                                The depth-integral of the carrier concentration density profile.
+                            </doc>
+                        </field>
+                    </group>
+                </group>
+            </group>
+
+        </group>
+    </group>
+</definition>
