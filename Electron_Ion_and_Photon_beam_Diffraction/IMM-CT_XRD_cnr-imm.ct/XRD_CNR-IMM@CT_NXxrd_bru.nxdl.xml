@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="nxdlformat.xsl"?>
+<!--
+# This file decribes a local data format for X-ray diffraction and reflection
+# conforming to practices in the NeXus Data Format.
+# 
+# This is not part of the official NeXus Data Format.
+# 
+# Copyright for NeXus:
+# NeXus - Neutron and X-ray Common Data Format
+# 
+# Copyright (C) 2022-2025 NeXus International Advisory Committee (NIAC)
+# 
+# For further information, see http://www.nexusformat.org
+-->
+<definition xmlns="http://definition.nexusformat.org/nxdl/3.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" category="application" type="group" name="NXxrd_bru" extends="NXxrd" xsi:schemaLocation="http://definition.nexusformat.org/nxdl/3.1 ../nxdl.xsd">
+    <doc>
+        This is a NeXus-compliant definition for XRD and XRR experiments
+        developed at CNR IMM Catania for local use and in the context of the 
+        NFFA-DI infrastructure.
+
+        This definition is a specialization of NXxrd with extra properties for 
+        Bruker XRD data.
+        Based on NXxrd, NXxrd_pan, and other definitions in nexus v2026.01
+    </doc>
+    <group type="NXentry">
+        <field name="definition">
+            <doc>
+                NFFA-DI NeXus-like schema for XRD experiments
+            </doc>
+            <attribute name="version">
+                <doc>
+                    Version number to identify which definition of this application
+                    definition was used for this entry/data.
+                </doc>
+            </attribute>
+            <attribute name="URL">
+                <doc>
+                    URL where to find further material (documentation, examples) relevant
+                    to the application definition.
+                </doc>
+            </attribute>
+            <enumeration>
+                <item value="NXxrd_bru"/>
+            </enumeration>
+        </field>
+        <field name="data_file" optional="true">
+            <doc>
+                Name of the data file.
+            </doc>
+        </field>
+        <field name="measurement_type" optional="true">
+            <doc>
+                Type of measurement.
+            </doc>
+            <enumeration>
+                <item value="XRD"/>
+                <item value="XRR"/>
+            </enumeration>
+        </field>
+        <group type="NXdata">
+            <field name="polar_angle" type="NX_FLOAT">
+                <doc>
+                    link (suggested target:/NXentry/NXinstrument/NXdetector/polar_angle)
+                    Link to polar angle in /NXentry/NXinstrument/NXdetector
+                </doc>
+                <dimensions rank="1">
+                    <dim index="1" value="nDet"/>
+                </dimensions>
+            </field>
+            <field name="data" type="NX_NUMBER">
+                <doc>
+                    link (suggested target:/NXentry/NXinstrument/NXdetector/data)
+                    Link to data in /Nxentry/Nxinstrument/Nxdetector
+                </doc>
+                <dimensions rank="1">
+                    <dim index="1" value="nDet"/>
+                </dimensions>
+            </field>
+        </group>
+        <group type="NXsample" optional="true">
+            <doc>
+                Description on sample.
+            </doc>
+            <field name="sample_id" optional="true">
+                <doc>
+                    Id of sample.
+                </doc>
+            </field>
+            <field name="sample_name"/>
+            <group type="NXenvironment" optional="true">
+                <doc>
+                    Environmental chamber conditions
+                </doc>
+                <field name="temperature" units="NX_TEMPERATURE" />
+                <field name="atmosphere">
+                    <doc>
+                        Atmosphere in the environmental chamber.
+                        Ex: air, vacuum, N2
+                    </doc>
+                </field>
+            </group>
+        </group> 
+        <group type="NXinstrument">
+            <group type="NXbeam">
+                <field name="incident_energy" type="NX_FLOAT" units="NX_ENERGY"/>
+            </group>
+            <group type="NXdetector">
+                <field name="data" type="NX_FLOAT">
+                    <doc>
+                        Detector signal.
+                    </doc>
+                    <attribute name="units" optional="true">
+                        <doc>
+                        Usually counts.
+                        </doc>
+                    </attribute>
+                </field>
+                <field name="polar_angle" type="NX_FLOAT" units="NX_ANGLE">
+                    <doc>
+                        The 2-theta range of the diffractogram
+                    </doc>
+                    <dimensions rank="1">
+                        <dim index="1" value="nDet"/>
+                    </dimensions>
+                    <attribute name="units">
+                        <enumeration>
+                            <item value="deg"/>
+                        </enumeration>
+                    </attribute>
+                </field>
+                <field name="data_type" type="NX_CHAR">
+                    <doc>
+                        What type of data is stored, example angle+counts
+                    </doc>
+                </field>
+            </group>
+            <group name="detector_optics" type="NXcomponent" optional="true">
+                <doc>
+                    Description of optics between the sample and the detector, in order.
+                </doc>
+                <group type="NXcomponent" optional="true">
+                    <doc>
+                        Individual optical component.
+
+                        NXcomponent extentions in https://manual.nexusformat.org/classes/base_classes/tech-structure.html#bc-tech-structure
+                        should be used if they match the component being described.
+                    </doc>
+                    <field name="optics_sequence_index" type="NX_INT">
+                        <doc>
+                            Order index of the component in the optical sequence.
+                            Start at 1 for the first item.
+                        </doc>
+                    </field>
+                </group>
+            </group>
+            <group type="NXsource">
+                <field name="xray_tube_material">
+                    <doc>
+                        Type of the X-ray tube.
+                    </doc>
+                    <enumeration open="true">
+                        <item value="Cu"/>
+                        <item value="Cr"/>
+                        <item value="Mo"/>
+                        <item value="Fe"/>
+                        <item value="Ag"/>
+                        <item value="In"/>
+                        <item value="Ga"/>
+                    </enumeration>
+                </field>
+                <field name="xray_tube_current" type="NX_FLOAT" units="NX_CURRENT" optional="true">
+                    <doc>
+                        Current of the X-ray tube.
+                    </doc>
+                </field>
+                <field name="xray_tube_voltage" type="NX_FLOAT" units="NX_VOLTAGE" optional="true">
+                    <doc>
+                        Voltage of the X-ray tube.
+                    </doc>
+                </field>
+                <field name="probe">
+                    <doc>
+                        Type of radiation source.
+                        
+                        Used to conform to NXsource.
+                    </doc>
+                    <enumeration>
+                        <item value="x-ray"/>
+                    </enumeration>
+                </field>
+                <field name="source_peak_wavelength" type="NX_FLOAT" units="NX_WAVELENGTH">
+                    <doc>
+                        Wavelength of the X-ray source. Used to convert from 2-theta to Q.
+                    </doc>
+                </field>
+                <field name="wavelength_alpha_one" type="NX_FLOAT" units="NX_WAVELENGTH">
+                    <doc>
+                        Wavelength of the alpha 1 line.
+                    </doc>
+                    <attribute name="units">
+                        <enumeration open="true">
+                            <item value="angstrom"/>
+                        </enumeration>
+                    </attribute>
+                </field>
+                <field name="wavelength_alpha_two" type="NX_FLOAT" units="NX_WAVELENGTH">
+                    <doc>
+                        Wavelength of the alpha 2 line.
+                    </doc>
+                    <attribute name="units">
+                        <enumeration open="true">
+                            <item value="angstrom"/>
+                        </enumeration>
+                    </attribute>
+                </field>
+                <field name="ratio_alphatwo_alphaone" type="NX_FLOAT" units="NX_DIMENSIONLESS">
+                    <doc>
+                        Alpha 2/alpha 1 intensity ratio.
+                    </doc>
+                </field>
+                <field name="wavelength_beta" type="NX_FLOAT" optional="true" units="NX_WAVELENGTH">
+                    <doc>
+                        Wavelength of the beta line.
+                    </doc>
+                    <attribute name="units">
+                        <enumeration open="true">
+                            <item value="angstrom"/>
+                        </enumeration>
+                    </attribute>
+                </field>                        
+            </group>
+            <group name="source_optics" type="NXcomponent" optional="true">
+                <doc>
+                    Description of optics between the source and the sample, in order.
+                </doc>
+                <group type="NXcomponent" optional="true">
+                    <doc>
+                        Individual optical component.
+
+                        NXcomponent extentions in https://manual.nexusformat.org/classes/base_classes/tech-structure.html#bc-tech-structure
+                        should be used if they match the component being described.
+                    </doc>
+                    <field name="optics_sequence_index" type="NX_INT">
+                        <doc>
+                            Order index of the component in the optical sequence.
+                            Start at 1 for the first item.
+                        </doc>
+                    </field>
+                </group>
+            </group>
+        </group>
+    </group>
+</definition>
